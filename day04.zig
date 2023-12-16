@@ -24,7 +24,7 @@ pub fn main() !void {
         const winningNumbersSlice = line[cardStartIndex..splitIndex];
         const actualNumbersSlice = line[splitIndex + 1 ..];
 
-        var winningNumbers = std.mem.split(u8, winningNumbersSlice, " ");
+        var winningNumbers = std.mem.tokenizeAny(u8, winningNumbersSlice, " ");
         while (winningNumbers.next()) |numberString| {
             const number = std.fmt.parseInt(usize, numberString, 10) catch continue;
             try set.put(number, {});
@@ -32,7 +32,7 @@ pub fn main() !void {
 
         var points: usize = 0;
         var count: usize = 0;
-        var actualNumbers = std.mem.split(u8, actualNumbersSlice, " ");
+        var actualNumbers = std.mem.tokenizeAny(u8, actualNumbersSlice, " ");
         while (actualNumbers.next()) |numberString| {
             const number = std.fmt.parseInt(usize, numberString, 10) catch continue;
             if (set.get(number) == null) {
